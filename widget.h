@@ -5,8 +5,9 @@
 #include <QNetworkReply>
 #include <QThread>
 #include <QDebug>
-#include "logintest.h"
-
+#include <QString>
+#include <QEventLoop>
+#include "tray.h"
 namespace Ui {
 class Widget;
 }
@@ -26,20 +27,27 @@ private:
 
     //接收获取二维码响应槽函数
     //获取二维码图片并开始监听是否登录成功
-    void ReplyFinished();
+    void ReplyFinished1(QNetworkReply*);
+
+    //获取二维码状态
+    void ReplyFinished2(QNetworkReply*);
 
     //处理窗口关闭槽函数，关闭线程，防止资源泄露
-    void DeelClose();
+    //void DeelClose();
 
-    void DeelFinish();
+    //void DeelFinish();
 private:
     Ui::Widget *ui;
-    QNetworkReply* reply;   //HTTP请求返回对象
-    QThread* thread;        //线程
-    LoginTest* loginTest;   //线程对象
+    QNetworkAccessManager* manager;     //连接对象
+    //QNetworkReply* reply;             //HTTP请求返回对象
+    QString url;                        //二维码url链接
+    QString api;                        //二维码状态api
+    QList<QNetworkCookie> allcookies;
+    QEventLoop* loop;
 
 signals:
-    void ThreadStart();        //开启进程信号
+    void success(QList<QNetworkCookie>);
+
 };
 
 #endif // WIDGET_H

@@ -14,10 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widget.cpp \
-    logintest.cpp
+    tray.cpp
 
 HEADERS  += widget.h \
-    logintest.h
+    tray.h
 
 FORMS    += widget.ui
 CONFIG += C++11
